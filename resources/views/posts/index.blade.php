@@ -12,7 +12,7 @@
         
         <h1 class="text-3xl font-bold text-gray-800 mb-6">{{ $title }}</h1>
 
-        <div class="space-y-4">
+        {{-- <div class="space-y-4">
             @foreach($posts as $post)
             <div class="bg-white p-6 rounded-lg shadow">
                 <h2 class="text-xl font-semibold text-blue-600">{{ $post['title'] }}</h2>
@@ -22,6 +22,25 @@
                 </a>
             </div>
             @endforeach
+        </div> --}}
+
+        <div class="space-y-4">
+            @forelse($posts as $post)
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold text-blue-600">{{ $post->title }}</h2>
+                <p class="text-gray-500 text-sm mt-1">
+                    Published: {{ $post->created_at->format('M d, Y') }}
+                </p>
+                <p class="text-gray-600 mt-2">{{ Str::limit($post->content, 150) }}</p>
+                <a href="/posts/{{ $post->id }}" class="inline-block mt-3 text-blue-500 hover:text-blue-700">
+                    Read more →
+                </a>
+            </div>
+            @empty
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <p class="text-gray-600">No posts available yet.</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </body>

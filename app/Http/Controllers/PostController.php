@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post; // JANGAN LUPA IMPORT MODEL
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = [
-            ['id' => 1, 'title' => 'Belajar Laravel', 'content' => 'Content post 1...'],
-            ['id' => 2, 'title' => 'Tips Programming', 'content' => 'Content post 2...'],
-            ['id' => 3, 'title' => 'Web Development', 'content' => 'Content post 3...'],
-        ];
+        // Ambil data dari database (hanya yang published)
+        $posts = Post::where('is_published', true)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         return view('posts.index', [
             'posts' => $posts,
@@ -22,11 +22,22 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = ['id' => $id, 'title' => 'Post ' . $id, 'content' => 'Ini adalah content untuk post ' . $id];
-        
+        // Cari post by ID
+        $post = Post::find($id);
+
+        // Jika post tidak ditemukan
+        if (!$post) {
+            abort(404, 'Post tidak ditemukan');
+        }
+
+        // Jika post tidak published, redirect
+        if (!$post->is_published) {
+            return redirect('/posts')->with('error', 'Post tidak tersedia');
+        }
+
         return view('posts.show', [
             'post' => $post,
-            'title' => 'Post Detail'
+            'title' => $post->title
         ]);
     }
 }

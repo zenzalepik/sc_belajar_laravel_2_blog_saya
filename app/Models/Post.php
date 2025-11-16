@@ -1,4 +1,5 @@
 <?php
+// D:\Github\sc_belajar_laravel_2_blog_saya\app\Models\Post.php
 
 namespace App\Models;
 
@@ -11,9 +12,9 @@ class Post extends Model
 
     // Field yang boleh diisi (mass assignment)
     protected $fillable = [
-        'title', 
-        'slug', 
-        'content', 
+        'title',
+        'slug',
+        'content',
         'is_published'
     ];
 

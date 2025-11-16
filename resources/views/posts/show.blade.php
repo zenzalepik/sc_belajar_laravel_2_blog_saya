@@ -8,7 +8,25 @@
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-2xl">
-        <a href="/posts" class="text-blue-600 mb-4 inline-block">← Back to Posts</a>
+        <div class="mb-8 py-6 border-t border-b border-gray-200 flex gap-4 justify-between">
+            <a href="/posts" class="text-blue-600 mb-4 inline-block">← Back to Posts</a>
+            <div class="flex gap-4 w-1/2 justify-end">
+                <a href="/posts/{{ $post->id }}/edit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg">
+                    Edit Post
+                </a>
+                <form action="/posts/{{ $post->id }}" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button 
+                        type="submit" 
+                        class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+                        onclick="return confirm('Are you sure you want to delete this post?')"
+                    >
+                        Delete Post
+                    </button>
+                </form>
+            </div>
+        </div>
         
         {{-- <article class="bg-white p-6 rounded-lg shadow">
             <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post['title'] }}</h1>

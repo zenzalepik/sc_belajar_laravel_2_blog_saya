@@ -33,11 +33,15 @@
             @forelse($posts as $post)
             <div class="bg-white p-6 rounded-lg shadow">
                 <h2 class="text-xl font-semibold text-blue-600">{{ $post->title }}</h2>
-                <p class="text-gray-500 text-sm mt-1">
+                {{-- <p class="text-gray-500 text-sm mt-1">
                     Published: {{ $post->created_at->format('M d, Y') }}
                     • Status: <span class="{{ $post->is_published ? 'text-green-600' : 'text-yellow-600' }}">
                         {{ $post->is_published ? 'Published' : 'Draft' }}
                     </span>
+                </p> --}}
+                <p class="text-gray-500 text-sm mt-1">
+                    Published: {{ $post->created_at->format('M d, Y') }}
+                    • By: {{ $post->user->name ?? 'Unknown' }}
                 </p>
                 <p class="text-gray-600 mt-2">{{ Str::limit($post->content, 150) }}</p>
                 <a href="/posts/{{ $post->id }}" class="inline-block mt-3 text-blue-500 hover:text-blue-700">

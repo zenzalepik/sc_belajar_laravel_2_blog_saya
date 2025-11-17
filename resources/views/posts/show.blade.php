@@ -45,8 +45,12 @@
 
         <article class="bg-white p-6 rounded-lg shadow">
             <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
-            <div class="text-gray-500 mb-6">
+            {{-- <div class="text-gray-500 mb-6">
                 Published on {{ $post->created_at->format('F d, Y') }}
+            </div> --}}
+            <div class="text-gray-500 mb-6">
+                Published on {{ $post->created_at->format('F d, Y') }} 
+                by {{ $post->user->name ?? 'Unknown' }}
             </div>
             
             <div class="prose max-w-none">
